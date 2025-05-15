@@ -5,7 +5,7 @@ function Menu(){
     return (
         <div className="menu">
             <div>
-                <div onClick={}>Comida</div>
+                <div>Comida</div>
                 <div>Dormir</div>
             </div>
             <div>
