@@ -1,6 +1,7 @@
 import './App.css';
 import Frame from './components/frame.js';
 import Title from './components/title.js';
+import Menu from './components/menu.js';
 
 function App() {
   return (
@@ -8,7 +9,7 @@ function App() {
       <div className="tamagotchi">
         <Title></Title>
       <Frame></Frame>
-      <div className="sidepanel"><h2>aaa</h2></div>
+      <Menu></Menu>
       </div>
     </div>
   );
