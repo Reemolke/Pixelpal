@@ -1,0 +1,24 @@
+@font-face {
+  font-family: 'Monocraft';
+  src: url('./assets/Monocraft-nerd-fonts-patched.ttc') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Monocraft', monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  margin: 0;
+}
+
