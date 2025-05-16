@@ -19,7 +19,7 @@ html, body {
   width: 50%;
   border: 4px solid black;
   background-color: rgb(185, 237, 255);
-  padding: 1.5%;
+  padding: 2%;
   border-radius: 5%;
 }
 .frame {
@@ -67,7 +67,7 @@ html, body {
   border-radius: 20px;
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
-  font-size: 1vw;
+  font-size: 1.5vh;
   text-align: center;
   height: 10%;
   width: 70%;
@@ -100,7 +100,8 @@ html, body {
   flex-direction: column;
   background-color: rgb(173, 243, 255);
   border-radius: 5px;
-  
+  padding: 1%;
+  margin-bottom: 2%;
   align-items: center;
   text-align: center;
   border: 8px solid rgb(180, 252, 255);
@@ -113,4 +114,12 @@ html, body {
   border-right: 8px solid rgb(173, 243, 255);
   border-left: 8px solid rgb(173, 243, 255);
   text-align: center;
+}
+.tienda{
+  display: flex;
+  overflow: auto;
+}
+.tienda div{
+  display: flex;
+  flex-direction: row;
 }
