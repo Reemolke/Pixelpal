@@ -1,11 +1,11 @@
 import React from "react";
 
 const availableItems = [
-  { id: 1, name: "Pan", price: 1.5 },
-  { id: 2, name: "Queso", price: 3.2 },
-  { id: 3, name: "Manzana", price: 0.8 },
-  { id: 4, name: "Leche", price: 2.0 },
-  { id: 5, name: "Huevos", price: 2.5 },
+  { id: 1, name: "🍞", price: 1.5 },
+  { id: 2, name: "🧀", price: 3.2 },
+  { id: 3, name: "🍎", price: 0.8 },
+  { id: 4, name: "🥛", price: 2.0 },
+  { id: 5, name: "🥚", price: 2.5 },
 ];
 
 function Tienda({ food, setFood }) {

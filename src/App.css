@@ -115,11 +115,32 @@ html, body {
   border-left: 8px solid rgb(173, 243, 255);
   text-align: center;
 }
-.tienda{
-  display: flex;
-  overflow: auto;
-}
-.tienda div{
+.tienda {
   display: flex;
   flex-direction: row;
+  overflow-x: auto;
+  overflow-y: auto;
+  white-space: nowrap;
+  padding: 1rem;
+  gap: 1rem;
+
+  /* Ocultar scroll */
+  scrollbar-width: none;         /* Firefox */
+  -ms-overflow-style: none;      /* IE y Edge */
+}
+.tienda::-webkit-scrollbar {
+  display: none;                 /* Chrome, Safari, Edge */
+}
+.card {
+  display: flex;
+  text-align: center;
+  flex-wrap: nowrap;
+  align-items: center;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  padding: 1rem;
+  text-align: center;
+  cursor: pointer;
 }
