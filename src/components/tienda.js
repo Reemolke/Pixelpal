@@ -1,5 +1,5 @@
-import React from "react";
-
+import React, { use, useState } from "react";
+import Menu from "./menu.js";
 const availableItems = [
   { id: 1, name: "🍞", price: 1 },
   { id: 2, name: "🧀", price: 3 },
@@ -7,12 +7,14 @@ const availableItems = [
   { id: 4, name: "🥛", price: 2 },
   { id: 5, name: "🥚", price: 2 },
 ];
-
-function Tienda({ food, setFood }) {
+function Tienda({ items,setItems,food, setFood }) {
+  const [estancia,setEstancia] = useState('tienda');
+const [contenido,setContenido] = useState("");
   function addToCart(item) {
     setFood([...food, item]);
+    setEstancia("volver")
   }
-
+  
   return (
   <div className="tienda">
     {availableItems.map((item) => (

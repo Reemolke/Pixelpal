@@ -20,11 +20,11 @@ function Menu({items,setItems,food,setFood}){
                 </div>
             )
         case "comida":
-            return <Comida></Comida>;
+            return <Comida items={items} setItems={setItems} food={food} setFood={setFood}></Comida>;
         case "dormir":
             return <div><h1>😴 Dormir</h1></div>;
         case "tienda":
-            return <Tienda food={food} setFood={setFood}></Tienda>;
+            return <Tienda items={items} setItems={setItems} food={food} setFood={setFood}></Tienda>;
         case "config":
             return <div><h1>⚙️ Configuración</h1></div>;
         default:
