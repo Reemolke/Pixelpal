@@ -1,8 +1,8 @@
-function title(){
-    return(
-        <div className="title">
-            <h1>Pixelpal</h1>
-        </div>
-    )
+function Title({ home }) {
+  return (
+    <div className="title" onClick={home}>
+      <h1>Pixelpal</h1>
+    </div>
+  );
 }
-export default title;
+export default Title;
