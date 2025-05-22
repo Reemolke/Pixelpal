@@ -192,8 +192,7 @@ html, body {
   color:white;
 }
 .menuSecundario{
-  font-size: 
-  100%;
+  font-size: 0.7rem;
   width: 8%;
   height: 80%;
   border: 4px solid black;
@@ -230,11 +229,30 @@ html, body {
   text-align: center;
 }
 .barraNutricionRelleno{
-  height: 5%;
+  height: 2vh;
   background-color: greenyellow;
 }
 .valores{
   background-color: aliceblue;
   border-radius: 5%;
   border: 4px solid black;
+  align-items: center;
+}
+.valorEstado{
+  height: 2vh;
+  background-color: greenyellow;
+}
+.contenedorEstado{
+  height: 2vh;
+  width: 100%;
+  background-color: red;
+
+}
+.valorDiv{
+  background-color: aliceblue;
+  padding:1%;
+  margin:auto;
+  margin-bottom: 10%;
+  border-radius: 5%;
+  width: 100%;
 }

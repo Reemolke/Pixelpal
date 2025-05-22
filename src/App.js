@@ -2,17 +2,23 @@ import './App.css';
 import Frame from './components/frame.js';
 import Title from './components/title.js';
 import Menu from './components/menu.js';
-import { useState } from 'react';
+import Estado from './components/estado.js';
+import { useState,useEffect } from 'react';
 
 function App() {
+  const [hambre, setHambre] = useState(100);
+  const [higiene, setHigiene] = useState(100);
+  const [energia, setEnergia] = useState(100);
+  const [diversion, setDiversion] = useState(100);
   const [items,setItems] = useState([]);
   const [food,setFood] = useState([]);
   const [menuEstancia,setMenuEstancia] = useState("menu");
   const [selectedFood,setSelectedFood] = useState("");
-  const comprar = () =>{
-    setItems(food);
-    setFood([]);
-  }
+  const comprar = () => {
+  setItems(prevItems => [...prevItems, ...food]);
+  setFood([]);
+  };
+
   const home = () =>{
     setMenuEstancia("menu");
     setFood([]);
@@ -45,10 +51,13 @@ function App() {
         </div>
       ))}
       </div>
+      case "menu" :
+        return <Estado menuEstancia={menuEstancia} selectedFood={selectedFood} setEnergia={setEnergia} setDiversion={setDiversion} setHambre={setHambre} setHigiene={setHigiene} higiene={higiene} hambre={hambre} diversion={diversion} energia={energia} ></Estado>
       default : 
       return;
     }
   }
+
   return (
     <div className="App">
       {renderMenuSecundario()}
