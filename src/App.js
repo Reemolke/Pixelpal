@@ -3,6 +3,7 @@ import Frame from './components/frame.js';
 import Title from './components/title.js';
 import Menu from './components/menu.js';
 import Estado from './components/estado.js';
+import Dormir from './components/dormir.js';
 import { useState,useEffect } from 'react';
 
 function App() {
@@ -53,6 +54,8 @@ function App() {
       </div>
       case "menu" :
         return <Estado menuEstancia={menuEstancia} selectedFood={selectedFood} setEnergia={setEnergia} setDiversion={setDiversion} setHambre={setHambre} setHigiene={setHigiene} higiene={higiene} hambre={hambre} diversion={diversion} energia={energia} ></Estado>
+      case "dormir" :
+        <Dormir setEnergia={setEnergia} energia={energia}></Dormir>
       default : 
       return;
     }
