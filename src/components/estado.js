@@ -30,7 +30,18 @@ function Estado({selectedFood,menuEstancia,setHigiene,higiene,setEnergia,energia
                 </div>)
                 default :
                 return (<div className="menuSecundario">
-                    <h1>{higiene}</h1>
+                    <div className='valorDiv'>
+                        <p>☺️</p><div className='contenedorEstado'><div className='valorEstado' style={{ width: `${diversion}%` }}></div></div>
+                    </div>
+                    <div className='valorDiv'>
+                        <p>🍔</p><div className='contenedorEstado'><div className='valorEstado' style={{ width: `${hambre}%` }}></div></div>
+                    </div>
+                    <div className='valorDiv'>
+                        <p>⚡️</p><div className='contenedorEstado'><div className='valorEstado' style={{ width: `${energia}%` }}></div></div>
+                    </div>
+                    <div className='valorDiv'>
+                        <p>🧼</p><div className='contenedorEstado'><div className='valorEstado' style={{ width: `${higiene}%` }}></div></div>
+                    </div>
                 </div>)
         }
     }

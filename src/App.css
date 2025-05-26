@@ -139,6 +139,8 @@ html, body {
   padding: 1rem;
   gap: 1rem;
   cursor: grabbing;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   /* Ocultar scroll */
   scrollbar-width: none;         /* Firefox */
@@ -149,6 +151,7 @@ html, body {
 }
 .tienda div{
   background-color: aliceblue;
+  height: 6vh;
   display:flex;
   cursor: grab;
   border-radius: 10%;

@@ -9,7 +9,7 @@ import { useState,useEffect } from 'react';
 function App() {
   const [hambre, setHambre] = useState(100);
   const [higiene, setHigiene] = useState(100);
-  const [energia, setEnergia] = useState(100);
+  const [energia, setEnergia] = useState(0);
   const [diversion, setDiversion] = useState(100);
   const [items,setItems] = useState([]);
   const [food,setFood] = useState([]);
@@ -55,7 +55,7 @@ function App() {
       case "menu" :
         return <Estado menuEstancia={menuEstancia} selectedFood={selectedFood} setEnergia={setEnergia} setDiversion={setDiversion} setHambre={setHambre} setHigiene={setHigiene} higiene={higiene} hambre={hambre} diversion={diversion} energia={energia} ></Estado>
       case "dormir" :
-        <Dormir setEnergia={setEnergia} energia={energia}></Dormir>
+        return <Estado menuEstancia={menuEstancia} selectedFood={selectedFood} setEnergia={setEnergia} setDiversion={setDiversion} setHambre={setHambre} setHigiene={setHigiene} higiene={higiene} hambre={hambre} diversion={diversion} energia={energia} ></Estado>
       default : 
       return;
     }
@@ -67,7 +67,7 @@ function App() {
       <div className="tamagotchi">
         <Title home={home}></Title>
         <Frame></Frame>
-        <Menu items={items} setItems={setItems} food={food} setFood={setFood} menuEstancia={menuEstancia} setMenuEstancia={setMenuEstancia} showFood={showFood}></Menu>
+        <Menu setEnergia={setEnergia} energia={energia} items={items} setItems={setItems} food={food} setFood={setFood} menuEstancia={menuEstancia} setMenuEstancia={setMenuEstancia} showFood={showFood}></Menu>
       </div>
     </div>
   );

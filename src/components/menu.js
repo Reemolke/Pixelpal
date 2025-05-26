@@ -1,7 +1,8 @@
 import { useState } from "react";
 import Comida from "./comida.js";
 import Tienda from "./tienda.js";
-function Menu({items,setItems,food,setFood,menuEstancia,setMenuEstancia,showFood}){
+import Dormir from "./dormir.js";
+function Menu({items,setItems,food,setFood,menuEstancia,setMenuEstancia,showFood,setEnergia,energia}){
 
     const renderContenido = () => {
     switch (menuEstancia) {
@@ -21,7 +22,7 @@ function Menu({items,setItems,food,setFood,menuEstancia,setMenuEstancia,showFood
         case "comida":
             return <Comida items={items} setItems={setItems} food={food} setFood={setFood} showFood={showFood}></Comida>;
         case "dormir":
-            return <div><h1>😴 Dormir</h1></div>;
+            return <Dormir setEnergia={setEnergia} energia={energia}></Dormir>
         case "tienda":
             return <Tienda items={items} setItems={setItems} food={food} setFood={setFood}></Tienda>;
         case "config":
