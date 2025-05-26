@@ -1,4 +1,4 @@
-import React, { use, useState } from "react";
+import React, { use, useState,useEffect,useRef } from "react";
 import Menu from "./menu.js";
 const availableItems = [
   { id: 0, name: "🍞", price: 1 ,count:0,nutrition: 2},
@@ -9,6 +9,25 @@ const availableItems = [
 ];
 
 function Tienda({ items,setItems,food, setFood }) {
+  const tiendaRef = useRef(null);
+
+  useEffect(() => {
+    const tienda = tiendaRef.current;
+    if (!tienda) return;
+
+    const handleWheel = (e) => {
+      if (e.deltaY !== 0) {
+        e.preventDefault();
+        tienda.scrollLeft += e.deltaY;
+      }
+    };
+
+    tienda.addEventListener('wheel', handleWheel, { passive: false });
+
+    return () => {
+      tienda.removeEventListener('wheel', handleWheel);
+    };
+  }, []);
   const agregarComida = (comida) => {
     setFood(prevFood => {
       const index = prevFood.findIndex(item => item.id === comida.id);
@@ -31,14 +50,16 @@ const [contenido,setContenido] = useState("");
   }
   
   return (
-  <div className="tienda">
+  <div className="tienda" ref={tiendaRef}>
     {availableItems.map((item) => (
       <div key={item.id} className="card" onClick={() => agregarComida(item)}>
         <h2>{item.name}</h2>
         <p>{item.price.toFixed(2)}€</p>
       </div>
     ))}
+    
   </div>
+  
 );
 
 }

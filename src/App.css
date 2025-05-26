@@ -138,7 +138,8 @@ html, body {
   white-space: nowrap;
   padding: 1rem;
   gap: 1rem;
-  cursor: pointer;
+  cursor: grabbing;
+  width: 100%;
   /* Ocultar scroll */
   scrollbar-width: none;         /* Firefox */
   -ms-overflow-style: none;      /* IE y Edge */
