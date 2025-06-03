@@ -9,7 +9,7 @@ import { useState,useEffect } from 'react';
 function App() {
   const [hambre, setHambre] = useState(100);
   const [higiene, setHigiene] = useState(100);
-  const [energia, setEnergia] = useState(0);
+  const [energia, setEnergia] = useState(100);
   const [diversion, setDiversion] = useState(100);
   const [items,setItems] = useState([]);
   const [food,setFood] = useState([]);
