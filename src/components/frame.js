@@ -9,10 +9,10 @@ function Frame() {
     ctx.imageSmoothingEnabled = false;
 
     const sprite = new Image();
-    sprite.src = "/PlayerTemplateIdle.png"; // Tu spritesheet en /public
+    sprite.src = "/RMO.png"; // Tu spritesheet en /public
 
-    const frameWidth = 32;
-    const frameHeight = 32;
+    const frameWidth = 640;
+    const frameHeight = 640;
     const columns = 4; // Frames por fila
     const rows = 4;    // Número de filas (acciones distintas)
     const currentRow = 0; // ← cambia esto para probar otras filas
@@ -32,14 +32,14 @@ function Frame() {
 
         ctx.drawImage(
         sprite,
-        currentFrame * 32, // suponiendo frames de 32x32
-        currentRow * 32,
-        32,
-        32,
+        currentFrame * 640, // suponiendo frames de 32x32
+        currentRow * 640,
+        640,
+        640,
         0,
         0,
-        128, // escala 4x en ancho
-        128  // escala 4x en alto
+        2560, // escala 4x en ancho
+        2560  // escala 4x en alto
         );
 
 
@@ -58,12 +58,18 @@ function Frame() {
   }, []);
 
   return (
-    <div className="frame">
-      <canvas
+    <div className="frame" style={{ 
+      display: "flex", 
+      justifyContent: "center", 
+      width: "100%"
+    }}>
+      <canvas 
         ref={canvasRef}
-        width={128}
-        height={128}
+        width={2560}
+        height={2560}
         className="canvas"
+        style={{marginLeft: "auto",marginRight: "auto",width: "80%",    // escala visual
+        height: "640px"}}
       />
     </div>
   );
