@@ -2,7 +2,8 @@ import { useState } from "react";
 import Comida from "./comida.js";
 import Tienda from "./tienda.js";
 import Dormir from "./dormir.js";
-function Menu({items,setItems,food,setFood,menuEstancia,setMenuEstancia,showFood,setEnergia,energia}){
+import LoginComponent from "./inicio.js";
+function Menu({items,setItems,food,setFood,menuEstancia,setMenuEstancia,showFood,setEnergia,energia,user,setUser}){
 
     const renderContenido = () => {
     switch (menuEstancia) {
@@ -28,7 +29,7 @@ function Menu({items,setItems,food,setFood,menuEstancia,setMenuEstancia,showFood
         case "config":
             return <div><h1>⚙️ Configuración</h1></div>;
         case "inicio":
-            return <div><h1>Iniciar sesión</h1></div>
+            return <LoginComponent setMenuEstancia={setMenuEstancia} user={user} setUser={setUser}></LoginComponent>
         default:
             return <div><h1>👾 Pantalla desconocida</h1></div>;
     }

@@ -1,6 +1,6 @@
 import { useState,useEffect } from 'react';
 
-function Estado({selectedFood,menuEstancia,setHigiene,higiene,setEnergia,energia,setHambre,hambre,setDiversion,diversion}){
+function Estado({selectedFood,menuEstancia,setHigiene,higiene,setEnergia,energia,setHambre,hambre,setDiversion,diversion,user}){
     useEffect(() => {
   const interval = setInterval(() => {
     setHambre(prev => Math.max(prev - 0.00231, 0));
@@ -15,6 +15,7 @@ function Estado({selectedFood,menuEstancia,setHigiene,higiene,setEnergia,energia
         switch (menuEstancia) {
             case "menu" :
                 return (<div className="menuSecundario">
+                    <img src={user.photoURL} style={{border: "3px solid black",borderRadius: "5%",margin: "auto"}}></img>
                     <div className='valorDiv'>
                         <p>☺️</p><div className='contenedorEstado'><div className='valorEstado' style={{ width: `${diversion}%` }}></div></div>
                     </div>

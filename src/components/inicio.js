@@ -1,44 +1,43 @@
-import React, { useState } from "react";
+import React from "react";
 import { signInWithPopup } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { auth, provider, db } from "../firebase"; // ajusta la ruta según tu estructura
 
-const LoginComponent = () => {
-  const [user, setUser] = useState(null);
-
+const LoginComponent = ({ setMenuEstancia, user, setUser }) => {
   const loginWithGoogle = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
-      const user = result.user;
+      const loggedUser = result.user;
 
-      await setDoc(doc(db, "users", user.uid), {
-        uid: user.uid,
-        name: user.displayName,
-        email: user.email,
-        photoURL: user.photoURL,
+      await setDoc(doc(db, "users", loggedUser.uid), {
+        uid: loggedUser.uid,
+        name: loggedUser.displayName,
+        email: loggedUser.email,
+        photoURL: loggedUser.photoURL,
         lastLogin: new Date(),
       });
 
-      setUser(user);
+      setUser(loggedUser);
+      setMenuEstancia("menu"); // aquí defines a qué vista cambiar tras el login
     } catch (error) {
       console.error("Login error", error);
     }
   };
 
-  if (user) {
-    return (
-      <div>
-        <p>Welcome {user.displayName}</p>
-        <img src={user.photoURL} alt="profile" width="50" />
-      </div>
-    );
-  } else {
-    return (
-      <div>
-        <button onClick={loginWithGoogle}>Login with Google</button>
-      </div>
-    );
-  }
+  return (
+    <div className="menu">
+      
+        <div
+          className="card"
+          style={{ justifyContent: "space-evenly", cursor: "pointer" }}
+          onClick={loginWithGoogle}
+        >
+          <p>Iniciar sesión con</p>
+          <img src="google.png" style={{ width: "2vw", height: "4vh" }} alt="Google" />
+        </div>
+      
+    </div>
+  );
 };
 
 export default LoginComponent;
