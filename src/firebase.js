@@ -10,9 +10,9 @@ import { getFirestore } from "firebase/firestore";
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyA0XAMqX6jmGzry-2BPegAEkNiEynW9G_U",
-  authDomain: "pixelpal-rmo.firebaseapp.com/",
+  authDomain: "pixelpal-30370.firebaseapp.com/",
   projectId: "pixelpal-30370",
-  storageBucket: "pixelpal-rmo.firebasestorage.app",
+  storageBucket: "pixelpal-30370.firebasestorage.app",
   messagingSenderId: "854639217260",
   appId: "1:854639217260:web:712fd312a04582425b6649",
   measurementId: "G-EMGKCPD7PN"
