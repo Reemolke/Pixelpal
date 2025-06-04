@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { auth, provider, signInWithPopup, db } from "./firebase";
+import { signInWithPopup } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
+import { auth, provider, db } from "../firebase"; // ajusta la ruta según tu estructura
 
 const LoginComponent = () => {
   const [user, setUser] = useState(null);
@@ -25,25 +26,17 @@ const LoginComponent = () => {
   };
 
   if (user) {
-    return React.createElement(
-      "div",
-      null,
-      React.createElement("p", null, "Welcome " + user.displayName),
-      React.createElement("img", {
-        src: user.photoURL,
-        alt: "profile",
-        width: "50",
-      })
+    return (
+      <div>
+        <p>Welcome {user.displayName}</p>
+        <img src={user.photoURL} alt="profile" width="50" />
+      </div>
     );
   } else {
-    return React.createElement(
-      "div",
-      null,
-      React.createElement(
-        "button",
-        { onClick: loginWithGoogle },
-        "Login with Google"
-      )
+    return (
+      <div>
+        <button onClick={loginWithGoogle}>Login with Google</button>
+      </div>
     );
   }
 };

@@ -4,6 +4,7 @@ import Title from './components/title.js';
 import Menu from './components/menu.js';
 import Estado from './components/estado.js';
 import Dormir from './components/dormir.js';
+import Inicio from './components/inicio.js';
 import { useState,useEffect } from 'react';
 
 function App() {
@@ -13,7 +14,7 @@ function App() {
   const [diversion, setDiversion] = useState(100);
   const [items,setItems] = useState([]);
   const [food,setFood] = useState([]);
-  const [menuEstancia,setMenuEstancia] = useState("menu");
+  const [menuEstancia,setMenuEstancia] = useState("inicio");
   const [selectedFood,setSelectedFood] = useState("");
   const comprar = () => {
   setItems(prevItems => [...prevItems, ...food]);
@@ -60,8 +61,19 @@ function App() {
       return;
     }
   }
-
-  return (
+  const renderInicio = () =>{
+    switch(menuEstancia){
+      case "inicio" :
+        return (<div className="App">
+      {renderMenuSecundario()}
+      <div className="tamagotchi">
+        <Title home={home}></Title>
+        <Inicio></Inicio>
+        <Menu setEnergia={setEnergia} energia={energia} items={items} setItems={setItems} food={food} setFood={setFood} menuEstancia={menuEstancia} setMenuEstancia={setMenuEstancia} showFood={showFood}></Menu>
+      </div>
+    </div>);
+      default : 
+      return (
     <div className="App">
       {renderMenuSecundario()}
       <div className="tamagotchi">
@@ -71,6 +83,9 @@ function App() {
       </div>
     </div>
   );
+    }
+  }
+  return renderInicio();
 }
 
 export default App;

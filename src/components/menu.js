@@ -27,6 +27,8 @@ function Menu({items,setItems,food,setFood,menuEstancia,setMenuEstancia,showFood
             return <Tienda items={items} setItems={setItems} food={food} setFood={setFood}></Tienda>;
         case "config":
             return <div><h1>⚙️ Configuración</h1></div>;
+        case "inicio":
+            return <div><h1>Iniciar sesión</h1></div>
         default:
             return <div><h1>👾 Pantalla desconocida</h1></div>;
     }
