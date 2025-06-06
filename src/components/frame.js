@@ -61,15 +61,15 @@ function Frame() {
     <div className="frame" style={{ 
       display: "flex", 
       justifyContent: "center", 
-      width: "100%"
+      width: "100%",height: "80%"
     }}>
       <canvas 
         ref={canvasRef}
         width={2560}
         height={2560}
         className="canvas"
-        style={{marginLeft: "auto",marginRight: "auto",width: "80%",    // escala visual
-        height: "640px"}}
+        style={{marginLeft: "auto",marginRight: "auto",width: "72%",    // escala visual
+        height: "100%"}}
       />
     </div>
   );

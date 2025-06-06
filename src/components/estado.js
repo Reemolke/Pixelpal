@@ -1,5 +1,7 @@
 import { useState,useEffect } from 'react';
 
+
+
 function Estado({selectedFood,menuEstancia,setHigiene,higiene,setEnergia,energia,setHambre,hambre,setDiversion,diversion,user}){
     useEffect(() => {
   const interval = setInterval(() => {

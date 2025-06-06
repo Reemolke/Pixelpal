@@ -10,7 +10,7 @@ import { doc, setDoc,getDoc } from "firebase/firestore";
 import {db} from "./firebase";
 
 function App() {
-  const [hambre, setHambre] = useState(100);
+  const [hambre, setHambre] = useState(0);
   const [higiene, setHigiene] = useState(100);
   const [energia, setEnergia] = useState(100);
   const [diversion, setDiversion] = useState(100);
@@ -23,6 +23,24 @@ function App() {
   setItems(prevItems => [...prevItems, ...food]);
   setFood([]);
   };
+  useEffect(() => {
+    if (!user?.uid) return;
+
+    const actualizarFirebase = async () => {
+      try {
+        await setDoc(doc(db, 'estados', user.uid), {
+          hambre,
+          higiene,
+          energia,
+          diversion,
+        }, { merge: true });
+      } catch (error) {
+        console.error('Error actualizando Firebase:', error);
+      }
+    };
+
+    actualizarFirebase();
+  }, [hambre, higiene, energia, diversion, user?.uid]);
   useEffect(() => {
   if (user && items.length > 0) {
     console.log("Guardando en Firebase", user.id, items);
@@ -40,7 +58,47 @@ function App() {
     saveItemsToFirebase();
   }
 }, [items, user]);
+useEffect(() => {
+    const cargarEstados = async () => {
+      if (!user?.uid) return;
 
+      const docRef = doc(db, 'usuarios', user.uid);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        setHambre(data.hambre ?? 100);
+        setHigiene(data.higiene ?? 100);
+        setEnergia(data.energia ?? 100);
+        setDiversion(data.diversion ?? 100);
+      }
+    };
+    cargarEstados();
+  }, [user]);
+const zampar = (selectedFood) => {
+  setHambre(hambre + selectedFood.nutrition * 10);
+
+  setItems((oldItems) => {
+    // Buscar el índice del item por nombre
+    const index = oldItems.findIndex(item => item.name === selectedFood.name);
+    if (index === -1) return oldItems; // no encontrado, no cambiar nada
+
+    // Crear copia del array
+    const newItems = [...oldItems];
+
+    // Restar 1 al count
+    newItems[index] = {
+      ...newItems[index],
+      count: newItems[index].count - 1
+    };
+
+    // Si count es 0 o menos, eliminar item
+    if (newItems[index].count <= 0) {
+      newItems.splice(index, 1);
+    }
+
+    return newItems;
+  });
+};
 const cargarInventario = async (user, setItems) => {
   try {
     const userRef = doc(db, "inventarios", user.uid); // usamos uid
@@ -65,8 +123,11 @@ useEffect(() => {
 }, [user]);
 
   const home = () =>{
-    setMenuEstancia("menu");
-    setFood([]);
+    if(menuEstancia !== "inicio"){
+      setMenuEstancia("menu");
+      setFood([]);
+    }
+
   }
   const showFood = (comida) =>{
     setSelectedFood(comida);
@@ -81,10 +142,10 @@ useEffect(() => {
           <h3>{selectedFood.nutrition}</h3>
           {selectedFood && (<div style={{display: "flex",flexDirection: "row"}}><div
             className="barraNutricionRelleno"
-            style={{ width: `${hambre}%` }}
-          ></div><div className="barraNutricionRelleno" style={{ width: `${selectedFood.nutrition*10}%` }}></div></div>)}
+            style={{ width: `${hambre}%`,backgroundColor: "rgb(121, 233, 145);", zIndex: 0 }}
+          ></div><div className="barraNutricionRelleno" style={{ width: `${selectedFood.nutrition*10}%` ,backgroundColor: "#FFFF91"}}></div></div>)}
           </div>
-          <div className='card'>Comer</div>
+          <div className='card' onClick={() => zampar(selectedFood)}>Comer</div>
       </div>
       case "tienda" :
       return <div className='menuSecundario'>
