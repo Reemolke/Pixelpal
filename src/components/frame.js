@@ -1,78 +1,137 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import Juego from "./juego";
 
-function Frame() {
+function Frame({ setMenuEstancia, menuEstancia,dinero,setDinero }) {
   const canvasRef = useRef(null);
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
+const animConfigs = {
+  menu: { spriteSrc: "/RMO.png", currentRow: 0, totalFrames: 4, loop: true },
+  comer: { spriteSrc: "/RMO_eating.png", currentRow: 0, totalFrames: 6, loop: false },
+  dormir: { spriteSrc: "/RMO_charging.png", currentRow: 0, totalFrames: 7, loop: false }, // No loop
+  default: { spriteSrc: "/RMO.png", currentRow: 0, totalFrames: 4, loop: true },
+};
+
+
+ useEffect(() => {
+  const canvas = canvasRef.current;
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+  ctx.imageSmoothingEnabled = false;
+
+  const { spriteSrc, currentRow, totalFrames,loop } = animConfigs[menuEstancia] || animConfigs.default;
+
+  const sprite = new Image();
+  sprite.src = spriteSrc;
+
+  const frameWidth = 640;
+  const frameHeight = 640;
+
+  let currentFrame = 0;
+  let lastFrameTime = 0;
+  const fps = 6;
+  const frameDuration = 1000 / fps;
+
+  let animationFrameId;
+  let isActive = true;
+
+  const render = (timestamp) => {
+  if (!isActive) return;
+
+  if (!lastFrameTime) lastFrameTime = timestamp;
+
+  if (timestamp - lastFrameTime >= frameDuration) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.imageSmoothingEnabled = false;
 
-    const sprite = new Image();
-    sprite.src = "/RMO.png"; // Tu spritesheet en /public
+    ctx.drawImage(
+      sprite,
+      currentFrame * frameWidth,
+      currentRow * frameHeight,
+      frameWidth,
+      frameHeight,
+      0,
+      0,
+      frameWidth * 4,
+      frameHeight * 4
+    );
 
-    const frameWidth = 640;
-    const frameHeight = 640;
-    const columns = 4; // Frames por fila
-    const rows = 4;    // Número de filas (acciones distintas)
-    const currentRow = 0; // ← cambia esto para probar otras filas
-
-    const totalFrames = columns;
-    let currentFrame = 0;
-
-    let animationFrameId;
-    let lastFrameTime = 0;
-    const fps = 6;
-    const frameDuration = 1000 / fps;
-
-    const render = (timestamp) => {
-      if (timestamp - lastFrameTime >= frameDuration) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.imageSmoothingEnabled = false;
-
-        ctx.drawImage(
-        sprite,
-        currentFrame * 640, // suponiendo frames de 32x32
-        currentRow * 640,
-        640,
-        640,
-        0,
-        0,
-        2560, // escala 4x en ancho
-        2560  // escala 4x en alto
-        );
-
-
-        currentFrame = (currentFrame + 1) % totalFrames;
-        lastFrameTime = timestamp;
+    if (loop) {
+      currentFrame = (currentFrame + 1) % totalFrames;
+    } else {
+      if (currentFrame < totalFrames - 1) {
+        currentFrame++;
       }
+      // si ya está en el último frame no avanza más
+    }
+    lastFrameTime = timestamp;
+  }
 
-      animationFrameId = requestAnimationFrame(render);
-    };
+  animationFrameId = requestAnimationFrame(render);
+};
 
-    sprite.onload = () => {
-      requestAnimationFrame(render);
-    };
 
-    return () => cancelAnimationFrame(animationFrameId);
-  }, []);
+  sprite.onload = () => {
+    currentFrame = 0;
+    lastFrameTime = 0;
+    if (isActive) animationFrameId = requestAnimationFrame(render);
+  };
 
-  return (
-    <div className="frame" style={{ 
-      display: "flex", 
-      justifyContent: "center", 
-      width: "100%",height: "80%"
-    }}>
-      <canvas 
-        ref={canvasRef}
-        width={2560}
-        height={2560}
-        className="canvas"
-        style={{marginLeft: "auto",marginRight: "auto",width: "72%",    // escala visual
-        height: "100%"}}
-      />
-    </div>
-  );
+  return () => {
+    isActive = false;
+    cancelAnimationFrame(animationFrameId);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  };
+}, [menuEstancia]);
+
+
+ // vuelve a ejecutarse cuando cambia menuEstancia
+
+  const renderContenido = () => {
+    console.log("menuEstancia:", menuEstancia);
+    switch (menuEstancia) {
+      case "juego":
+        return (
+          <div
+            className="frame"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              width: "100%",
+              height: "80%",
+            }}
+          >
+            <Juego juego="runner" dinero={dinero} setDinero={setDinero}></Juego>
+          </div>
+        );
+      default:
+        return (
+          <div
+            className="frame"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              width: "100%",
+              height: "80%",
+            }}
+          >
+            <canvas
+              ref={canvasRef}
+              width={2560}
+              height={2560}
+              className="canvas"
+              style={{
+                marginLeft: "auto",
+                marginRight: "auto",
+                width: "72%",
+                height: "100%",
+              }}
+            />
+          </div>
+        );
+    }
+  };
+
+  return renderContenido();
 }
 
 export default Frame;

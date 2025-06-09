@@ -50,7 +50,7 @@ function Dormir({ setEnergia, energia }) {
     const intervalo = setInterval(() => {
       setEnergia((prevEnergia) => {
         if (prevEnergia < 100) {
-          return prevEnergia + 1;
+          return prevEnergia + 0.2;
         } else {
           clearInterval(intervalo);
           return prevEnergia;

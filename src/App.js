@@ -10,37 +10,98 @@ import { doc, setDoc,getDoc } from "firebase/firestore";
 import {db} from "./firebase";
 
 function App() {
-  const [hambre, setHambre] = useState(0);
-  const [higiene, setHigiene] = useState(100);
-  const [energia, setEnergia] = useState(100);
-  const [diversion, setDiversion] = useState(100);
+  const [hambre, setHambre] = useState(null);
+  const [higiene, setHigiene] = useState(null);
+  const [energia, setEnergia] = useState(null);
+  const [diversion, setDiversion] = useState(null);
   const [items,setItems] = useState([]);
   const [food,setFood] = useState([]);
   const [menuEstancia,setMenuEstancia] = useState("inicio");
-  const [selectedFood,setSelectedFood] = useState("");
+  const [selectedFood,setSelectedFood] = useState();
   const [user, setUser] = useState(null);
+  const [cargandoInicial, setCargandoInicial] = useState(true);
+  const [dinero,setDinero] = useState(0.0);
   const comprar = () => {
-  setItems(prevItems => [...prevItems, ...food]);
-  setFood([]);
+    let sum;
+    food.forEach(element => {
+      sum =+ element.price;
+    });
+    if(sum < dinero){
+      setItems(prevItems => [...prevItems, ...food]);
+      setFood([]);
+      setDinero(Number((dinero-sum).toFixed(2)));
+    }else{
+      alert("No tienes dinero suficiente");
+    }
   };
-  useEffect(() => {
+  
+
+useEffect(() => {
+  const cargarEstado = async () => {
     if (!user?.uid) return;
 
-    const actualizarFirebase = async () => {
-      try {
-        await setDoc(doc(db, 'estados', user.uid), {
-          hambre,
-          higiene,
-          energia,
-          diversion,
-        }, { merge: true });
-      } catch (error) {
-        console.error('Error actualizando Firebase:', error);
-      }
-    };
+    try {
+      const docRef = doc(db, 'estados', user.uid);
+      const snapshot = await getDoc(docRef);
 
-    actualizarFirebase();
-  }, [hambre, higiene, energia, diversion, user?.uid]);
+      if (snapshot.exists()) {
+        const data = snapshot.data();
+        const tiempoPasado = (Date.now() - data.lastUpdate) / 1000; // en segundos
+        const deterioro = tiempoPasado * 0.00231;
+
+        const safe = (valor) => (typeof valor === "number" ? valor : 100);
+        console.log('hambre:', data.hambre);
+        setHambre(Math.max(safe(data.hambre) - deterioro, 0));
+        setHigiene(Math.max(safe(data.higiene) - deterioro, 0));
+        setEnergia(Math.max(safe(data.energia) - deterioro, 0));
+        setDiversion(Math.max(safe(data.diversion) - deterioro, 0));
+        setDinero(data.dinero);
+      } else {
+        setHambre(100);
+        setHigiene(100);
+        setEnergia(100);
+        setDiversion(100);
+        setDinero(0);
+      }
+      setCargandoInicial(false);
+    } catch (error) {
+      console.error(error);
+      setCargandoInicial(false);
+    }
+  };
+
+  cargarEstado();
+}, [user?.uid]);
+useEffect(() => {
+  const guardarAntesDeSalir = (event) => {
+    if (!user?.uid) return;
+
+    const docRef = doc(db, 'estados', user.uid);
+    setDoc(docRef, {
+      hambre,
+      higiene,
+      energia,
+      diversion,
+      lastUpdate: Date.now(),
+      dinero
+    }, { merge: true });
+
+    // Opcional: mostrar confirmación de salida (a veces bloqueado por navegadores modernos)
+    // event.preventDefault();
+    // event.returnValue = '';
+  };
+
+  window.addEventListener('beforeunload', guardarAntesDeSalir);
+
+  return () => {
+    window.removeEventListener('beforeunload', guardarAntesDeSalir);
+  };
+}, [hambre, higiene, energia, diversion,dinero, user?.uid]);
+
+
+
+
+
   useEffect(() => {
   if (user && items.length > 0) {
     console.log("Guardando en Firebase", user.id, items);
@@ -58,24 +119,14 @@ function App() {
     saveItemsToFirebase();
   }
 }, [items, user]);
-useEffect(() => {
-    const cargarEstados = async () => {
-      if (!user?.uid) return;
 
-      const docRef = doc(db, 'usuarios', user.uid);
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        const data = docSnap.data();
-        setHambre(data.hambre ?? 100);
-        setHigiene(data.higiene ?? 100);
-        setEnergia(data.energia ?? 100);
-        setDiversion(data.diversion ?? 100);
-      }
-    };
-    cargarEstados();
-  }, [user]);
 const zampar = (selectedFood) => {
-  setHambre(hambre + selectedFood.nutrition * 10);
+  
+  if(hambre+selectedFood.nutrition*10 > 100){
+    setHambre(100);
+  }else{
+    setHambre(hambre + selectedFood.nutrition * 10);
+  }
 
   setItems((oldItems) => {
     // Buscar el índice del item por nombre
@@ -125,6 +176,7 @@ useEffect(() => {
   const home = () =>{
     if(menuEstancia !== "inicio"){
       setMenuEstancia("menu");
+      setSelectedFood();
       setFood([]);
     }
 
@@ -136,15 +188,13 @@ useEffect(() => {
     switch(menuEstancia) {
       case "comida" :
         return <div className='menuSecundario' style={{alignItems: "center"}}>
-          <div style={{backgroundColor: "aliceblue",border: "3px solid black", borderRadius: "5%"}}>
+          {selectedFood &&(<div style={{border: "3px solid black", borderRadius: "5%",width: "100%"}}>
           <h1>{selectedFood.name}</h1>
-          {selectedFood && (<h2>Nutrición</h2>)}
-          <h3>{selectedFood.nutrition}</h3>
-          {selectedFood && (<div style={{display: "flex",flexDirection: "row"}}><div
+          <div style={{display: "flex",flexDirection: "row"}}><div
             className="barraNutricionRelleno"
             style={{ width: `${hambre}%`,backgroundColor: "rgb(121, 233, 145);", zIndex: 0 }}
-          ></div><div className="barraNutricionRelleno" style={{ width: `${selectedFood.nutrition*10}%` ,backgroundColor: "#FFFF91"}}></div></div>)}
-          </div>
+          ></div><div className="barraNutricionRelleno" style={{ width: `${selectedFood.nutrition*10}%` ,backgroundColor: "#FFFF91"}}></div></div>
+          </div>)}
           <div className='card' onClick={() => zampar(selectedFood)}>Comer</div>
       </div>
       case "tienda" :
@@ -161,7 +211,7 @@ useEffect(() => {
         </div>
       </div>
       case "menu" :
-        return <Estado user={user} menuEstancia={menuEstancia} selectedFood={selectedFood} setEnergia={setEnergia} setDiversion={setDiversion} setHambre={setHambre} setHigiene={setHigiene} higiene={higiene} hambre={hambre} diversion={diversion} energia={energia} ></Estado>
+        return <Estado dinero={dinero} user={user} menuEstancia={menuEstancia} selectedFood={selectedFood} setEnergia={setEnergia} setDiversion={setDiversion} setHambre={setHambre} setHigiene={setHigiene} higiene={higiene} hambre={hambre} diversion={diversion} energia={energia} ></Estado>
       case "dormir" :
         return <Estado menuEstancia={menuEstancia} selectedFood={selectedFood} setEnergia={setEnergia} setDiversion={setDiversion} setHambre={setHambre} setHigiene={setHigiene} higiene={higiene} hambre={hambre} diversion={diversion} energia={energia} ></Estado>
       default : 
@@ -173,7 +223,7 @@ useEffect(() => {
       {renderMenuSecundario()}
       <div className="tamagotchi">
         <Title home={home}></Title>
-        <Frame></Frame>
+        <Frame setDinero={setDinero} dinero={dinero} menuEstancia={menuEstancia} setMenuEstancia={setMenuEstancia}></Frame>
         <Menu user={user} setUser={setUser} setEnergia={setEnergia} energia={energia} items={items} setItems={setItems} food={food} setFood={setFood} menuEstancia={menuEstancia} setMenuEstancia={setMenuEstancia} showFood={showFood}></Menu>
       </div>
     </div>

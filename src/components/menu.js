@@ -16,7 +16,7 @@ function Menu({items,setItems,food,setFood,menuEstancia,setMenuEstancia,showFood
                     </div>
                     <div>
                         <div onClick={() => setMenuEstancia("tienda")}>Tienda</div>
-                        <div onClick={() => setMenuEstancia("config")}>Config</div>
+                        <div onClick={() => setMenuEstancia("juego")}>Minijuegos</div>
                     </div>
                 </div>
             )
@@ -26,8 +26,8 @@ function Menu({items,setItems,food,setFood,menuEstancia,setMenuEstancia,showFood
             return <Dormir setEnergia={setEnergia} energia={energia}></Dormir>
         case "tienda":
             return <Tienda items={items} setItems={setItems} food={food} setFood={setFood}></Tienda>;
-        case "config":
-            return <div><h1>⚙️ Configuración</h1></div>;
+        case "juego":
+            return <div><h1>Juego</h1></div>;
         case "inicio":
             return <LoginComponent setMenuEstancia={setMenuEstancia} user={user} setUser={setUser}></LoginComponent>
         default:

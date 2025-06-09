@@ -2,7 +2,7 @@ import { useState,useEffect } from 'react';
 
 
 
-function Estado({selectedFood,menuEstancia,setHigiene,higiene,setEnergia,energia,setHambre,hambre,setDiversion,diversion,user}){
+function Estado({dinero,selectedFood,menuEstancia,setHigiene,higiene,setEnergia,energia,setHambre,hambre,setDiversion,diversion,user}){
     useEffect(() => {
   const interval = setInterval(() => {
     setHambre(prev => Math.max(prev - 0.00231, 0));
@@ -18,6 +18,7 @@ function Estado({selectedFood,menuEstancia,setHigiene,higiene,setEnergia,energia
             case "menu" :
                 return (<div className="menuSecundario">
                     <img src={user.photoURL} style={{border: "3px solid black",borderRadius: "5%",margin: "auto"}}></img>
+                    <p>${dinero.toFixed(3)}</p>
                     <div className='valorDiv'>
                         <p>☺️</p><div className='contenedorEstado'><div className='valorEstado' style={{ width: `${diversion}%` }}></div></div>
                     </div>
@@ -26,9 +27,6 @@ function Estado({selectedFood,menuEstancia,setHigiene,higiene,setEnergia,energia
                     </div>
                     <div className='valorDiv'>
                         <p>⚡️</p><div className='contenedorEstado'><div className='valorEstado' style={{ width: `${energia}%` }}></div></div>
-                    </div>
-                    <div className='valorDiv'>
-                        <p>🧼</p><div className='contenedorEstado'><div className='valorEstado' style={{ width: `${higiene}%` }}></div></div>
                     </div>
                 </div>)
                 default :
