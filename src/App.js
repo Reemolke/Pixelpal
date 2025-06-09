@@ -121,35 +121,40 @@ useEffect(() => {
 }, [items, user]);
 
 const zampar = (selectedFood) => {
-  
-  if(hambre+selectedFood.nutrition*10 > 100){
+  if (hambre + selectedFood.nutrition * 10 > 100) {
     setHambre(100);
-  }else{
+  } else {
     setHambre(hambre + selectedFood.nutrition * 10);
   }
 
+  setSelectedFood(null); // ⬅️ Mover aquí
+
   setItems((oldItems) => {
-    // Buscar el índice del item por nombre
     const index = oldItems.findIndex(item => item.name === selectedFood.name);
-    if (index === -1) return oldItems; // no encontrado, no cambiar nada
+    if (index === -1) return oldItems;
 
-    // Crear copia del array
     const newItems = [...oldItems];
-
-    // Restar 1 al count
     newItems[index] = {
       ...newItems[index],
       count: newItems[index].count - 1
     };
-
-    // Si count es 0 o menos, eliminar item
+    console.log(newItems[0])
     if (newItems[index].count <= 0) {
       newItems.splice(index, 1);
+      if (newItems.length === 0) {
+        return [];
+      }
     }
-
+    console.log(newItems[0])
     return newItems;
   });
+  
+  setMenuEstancia("comer");
+  setTimeout(() => {
+    setMenuEstancia("comida");
+  }, 1200);
 };
+
 const cargarInventario = async (user, setItems) => {
   try {
     const userRef = doc(db, "inventarios", user.uid); // usamos uid

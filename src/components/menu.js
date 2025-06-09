@@ -31,7 +31,7 @@ function Menu({items,setItems,food,setFood,menuEstancia,setMenuEstancia,showFood
         case "inicio":
             return <LoginComponent setMenuEstancia={setMenuEstancia} user={user} setUser={setUser}></LoginComponent>
         default:
-            return <div><h1>👾 Pantalla desconocida</h1></div>;
+            return <div></div>;
     }
 };
 

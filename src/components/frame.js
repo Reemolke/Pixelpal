@@ -7,7 +7,7 @@ function Frame({ setMenuEstancia, menuEstancia,dinero,setDinero }) {
 const animConfigs = {
   menu: { spriteSrc: "/RMO.png", currentRow: 0, totalFrames: 4, loop: true },
   comer: { spriteSrc: "/RMO_eating.png", currentRow: 0, totalFrames: 6, loop: false },
-  dormir: { spriteSrc: "/RMO_charging.png", currentRow: 0, totalFrames: 7, loop: false }, // No loop
+  dormir: { spriteSrc: "/RMO_charging.png", currentRow: 0, totalFrames: 7, loop: true }, // No loop
   default: { spriteSrc: "/RMO.png", currentRow: 0, totalFrames: 4, loop: true },
 };
 
