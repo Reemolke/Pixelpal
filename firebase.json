@@ -8,7 +8,6 @@
     "source": "dataconnect"
   },
   "hosting": {
-    "site": "pixelpal-30370",
     "public": "build",
     "ignore": [
       "firebase.json",
