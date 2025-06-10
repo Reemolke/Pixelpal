@@ -97,9 +97,6 @@ html, body {
   height: 100%;
   width: 70%;
 }
-.title:hover{
-  background-color: aliceblue;
-}
 .canvas{
   height: 100%;
   width: 100%;
@@ -281,3 +278,31 @@ html, body {
   border-radius: 5%;
   width: 100%;
 }
+.back {
+  width: 10%;          /* O un tamaño fijo para pruebas, ej 200px */
+  height: 100%;        /* El padre debe tener altura definida */
+  background-image: url('/public/back.png');
+  background-repeat: no-repeat;
+  transition: background-image 0.3s ease;
+  background-position: center;
+  cursor: pointer;     /* Para que se note que es interactivo */
+}
+
+.back:hover {
+  background-image: url('/public/back_hover.png');
+}
+.logout {
+  width: 10%;          /* O un tamaño fijo para pruebas, ej 200px */
+  height: 100%;        /* El padre debe tener altura definida */
+  background-image: url('/public/logout.png');
+  background-repeat: no-repeat;
+  transition: background-image 0.3s ease;
+  background-position: center;
+  cursor: pointer;     /* Para que se note que es interactivo */
+}
+
+.logout:hover {
+  background-image: url('/public/logout_hover.png');
+  
+}
+
