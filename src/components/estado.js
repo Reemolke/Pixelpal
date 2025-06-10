@@ -39,7 +39,7 @@ function Estado({dinero,selectedFood,menuEstancia,setHigiene,higiene,setEnergia,
                     </div>
                     <div className='valorDiv'>
                         <p>⚡️</p><div className='contenedorEstado'><div className='valorEstado' style={{ width: `${energia}%` }}></div></div>
-                    </div>giot
+                    </div>
                 </div>)
         }
     }
