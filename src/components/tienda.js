@@ -1,9 +1,9 @@
 import React, { use, useState,useEffect,useRef } from "react";
 import Menu from "./menu.js";
 const availableItems = [
-  { id: 0, name: "🍞", price: 1 ,count:0,nutrition: 2},
+  { id: 0, name: "pan.png", price: 1 ,count:0,nutrition: 2},
   { id: 1, name: "🧀", price: 3 ,count:0,nutrition: 5},
-  { id: 2, name: "🍎", price: 0.8,count:0,nutrition: 3 },
+  { id: 2, name: "manzana.png", price: 0.8,count:0,nutrition: 3 },
   { id: 3, name: "🥛", price: 2,count:0, nutrition: 2 },
   { id: 4, name: "🥚", price: 2,count:0,nutrition: 6 },
 ];
@@ -52,9 +52,9 @@ const [contenido,setContenido] = useState("");
   return (
   <div className="tienda" ref={tiendaRef}>
     {availableItems.map((item) => (
-      <div key={item.id} className="card" onClick={() => agregarComida(item)}>
-        <h2>{item.name}</h2>
-        <p>{item.price.toFixed(2)}€</p>
+      <div style={{display: "flex",justifyContent: "center",alignItems:"center"}} key={item.id} className="card" onClick={() => agregarComida(item)}>
+        <img src={item.name}></img>
+        <p style={{margin: "0"}}>{item.price.toFixed(2)}€</p>
       </div>
     ))}
     
