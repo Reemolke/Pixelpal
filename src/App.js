@@ -5,7 +5,7 @@ import Menu from './components/menu.js';
 import Estado from './components/estado.js';
 import Dormir from './components/dormir.js';
 import Inicio from './components/inicio.js';
-import { useState,useEffect } from 'react';
+import { useState,useEffect,useRef } from 'react';
 import { doc, setDoc,getDoc } from "firebase/firestore";
 import {db} from "./firebase";
 
@@ -21,6 +21,7 @@ function App() {
   const [user, setUser] = useState(null);
   const [cargandoInicial, setCargandoInicial] = useState(true);
   const [dinero,setDinero] = useState(0.0);
+  
   const comprar = () => {
     let sum;
     food.forEach(element => {
@@ -34,12 +35,15 @@ function App() {
       alert("No tienes dinero suficiente");
     }
   };
-  
 
+
+
+
+useBackgroundMusic("Pixelated Dreams.mp3",0.5,menuEstancia)
 useEffect(() => {
   const cargarEstado = async () => {
     if (!user?.uid) return;
-
+    
     try {
       const docRef = doc(db, 'estados', user.uid);
       const snapshot = await getDoc(docRef);
@@ -103,7 +107,7 @@ useEffect(() => {
 
 
   useEffect(() => {
-  if (user && items.length > 0) {
+  if (user) {
     console.log("Guardando en Firebase", user.id, items);
 
     const saveItemsToFirebase = async () => {
@@ -228,11 +232,49 @@ useEffect(() => {
       {renderMenuSecundario()}
       <div className="tamagotchi">
         <Title home={home}></Title>
-        <Frame setDinero={setDinero} dinero={dinero} menuEstancia={menuEstancia} setMenuEstancia={setMenuEstancia}></Frame>
+        <Frame setDinero={setDinero} dinero={dinero} menuEstancia={menuEstancia} setMenuEstancia={setMenuEstancia} setDiversion={setDiversion} diversion={diversion}></Frame>
         <Menu user={user} setUser={setUser} setEnergia={setEnergia} energia={energia} items={items} setItems={setItems} food={food} setFood={setFood} menuEstancia={menuEstancia} setMenuEstancia={setMenuEstancia} showFood={showFood}></Menu>
       </div>
     </div>
   );
+}
+
+
+export function useBackgroundMusic(src, volume = 0.5, menuEstancia) {
+  const audioRef = useRef(null);
+
+  // Crear el audio una sola vez
+  useEffect(() => {
+    if (!src) return;
+
+    const audio = new Audio(src);
+    audio.loop = true;
+    audio.volume = volume;
+    audioRef.current = audio;
+
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+        audioRef.current = null;
+      }
+    };
+  }, [src, volume]);
+
+  // Controlar reproducción según menuEstancia
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (menuEstancia === "juego" || menuEstancia === "inicio") {
+      audio.pause();
+      audio.currentTime = 0;
+    } else {
+      audio.play().catch((err) => {
+        console.warn("Error al reproducir música:", err);
+      });
+    }
+  }, [menuEstancia]);
 }
 
 export default App;

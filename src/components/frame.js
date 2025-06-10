@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import Juego from "./juego";
 
-function Frame({ setMenuEstancia, menuEstancia,dinero,setDinero }) {
+function Frame({ setMenuEstancia, menuEstancia,dinero,setDinero,setDiversion,diversion }) {
   const canvasRef = useRef(null);
 
 const animConfigs = {
@@ -100,7 +100,7 @@ const animConfigs = {
               height: "80%",
             }}
           >
-            <Juego juego="runner" dinero={dinero} setDinero={setDinero}></Juego>
+            <Juego juego="runner" dinero={dinero} setDinero={setDinero} setDiversion={setDiversion} diversion={diversion}></Juego>
           </div>
         );
       default:

@@ -1,10 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useBackgroundMusic } from "../App";
 
 const GRAVEDAD = -0.1; // gravedad negativa para bajar
 const SALTO_VELOCIDAD = 3; // velocidad positiva para subir
 const PISO = 0;
 
-const RunnerGame = ({ spritesheetUrl, framesCount, frameWidth, frameHeight,setDinero,dinero}) => {
+const RunnerGame = ({ spritesheetUrl, framesCount, frameWidth, frameHeight,setDinero,dinero,setDiversion,diversion}) => {
   const [frameIndex, setFrameIndex] = useState(0);
   const [posY, setPosY] = useState(PISO);
   const [velY, setVelY] = useState(0);
@@ -36,10 +37,42 @@ const RunnerGame = ({ spritesheetUrl, framesCount, frameWidth, frameHeight,setDi
     return () => clearTimeout(timeoutId);
   }, [gameOver]);
 
+  function useBackgroundMusic(src, activo, volume = 0.5) {
+  const audioRef = useRef(null);
+
+  useEffect(() => {
+    if (!src || !activo) {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }
+      return;
+    }
+
+    const audio = new Audio(src);
+    audio.loop = true;
+    audio.volume = volume;
+
+    audio.play().catch((err) => {
+      console.warn("Error al reproducir música:", err);
+    });
+
+    audioRef.current = audio;
+
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }
+    };
+  }, [src, activo, volume]);
+}
+
   // Loop juego
+  useBackgroundMusic("Static Love.mp3",!gameOver,0.5)
   useEffect(() => {
     if (gameOver) return;
-
+    
     const velocidadObstaculo = 3;
     const personajeWidth = frameWidth-17;
     const personajeHeight = frameHeight;
@@ -79,8 +112,13 @@ const RunnerGame = ({ spritesheetUrl, framesCount, frameWidth, frameHeight,setDi
           persY + personajeHeight > obstY
         ) {
           setGameOver(true);
+          playSound("hitHurt.wav")
           setDinero(prev => Number(prev) + Number((score * 0.0001).toFixed(2)));
-
+          if(diversion+10 >= 100){
+            setDiversion(100)
+          }else{
+            setDiversion(diversion+10)
+          }
           break;
         }
       }
@@ -95,11 +133,18 @@ const RunnerGame = ({ spritesheetUrl, framesCount, frameWidth, frameHeight,setDi
     return () => cancelAnimationFrame(requestRef.current);
   }, [velY, posY, obstaculos, gameOver, frameHeight, frameWidth, enSuelo]);
 
+  const playSound = (src) => {
+  const audio = new Audio(src);
+  audio.play().catch(error => {
+    console.error("Error al reproducir el sonido:", error);
+  });
+}
   // Control salto teclado
   useEffect(() => {
     const onKeyDown = (e) => {
       if (e.code === "Space" && enSuelo && !gameOver) {
         setVelY(SALTO_VELOCIDAD);
+        playSound("jump.wav")
       }
       if (e.code === "Enter" && gameOver) {
         setGameOver(false);
@@ -121,6 +166,7 @@ const RunnerGame = ({ spritesheetUrl, framesCount, frameWidth, frameHeight,setDi
     if (gameOver) {
       setGameOver(false);
       setScore(0);
+      
       setObstaculos([]);
       setPosY(PISO);
       setVelY(0);
@@ -188,7 +234,7 @@ const RunnerGame = ({ spritesheetUrl, framesCount, frameWidth, frameHeight,setDi
   );
 };
 
-export default function Juego({ juego,setDinero,dinero }) {
+export default function Juego({ juego,setDinero,dinero,setDiversion,diversion }) {
   const spritesheetUrl = "/PlayerTemplateIdle.png"; // Cambia a tu ruta real
   const framesCount = 6;
   const frameWidth = 64;
@@ -203,6 +249,8 @@ export default function Juego({ juego,setDinero,dinero }) {
         frameHeight={frameHeight}
         setDinero={setDinero}
         dinero={dinero}
+        setDiversion={setDiversion}
+        diversion={diversion}
       />
     );
   }

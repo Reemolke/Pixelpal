@@ -18,7 +18,7 @@ function Comida({ items,setItems,food, setFood,showFood}) {
   return (
   <div className="comida">
     {Object.values(groupedItems).map((item) => (
-      <div key={item.name} className="card" onClick={() => showFood(item)}>
+      <div style={{fontSize: "1vw",width:"100%",padding: "5px"}} key={item.name} className="card" onClick={() => showFood(item)}>
         <h2>{item.name}</h2>
         <p>x{item.count}</p>
       </div>
