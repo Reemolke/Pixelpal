@@ -198,7 +198,7 @@ useEffect(() => {
       case "comida" :
         return <div className='menuSecundario' style={{alignItems: "center"}}>
           {selectedFood &&(<div style={{border: "3px solid black", borderRadius: "5%",width: "100%"}}>
-          <h1>{selectedFood.name}</h1>
+          <img src={selectedFood.name}></img>
           <div style={{display: "flex",flexDirection: "row"}}><div
             className="barraNutricionRelleno"
             style={{ width: `${hambre}%`,backgroundColor: "rgb(121, 233, 145);", zIndex: 0 }}
@@ -217,7 +217,8 @@ useEffect(() => {
         
         {food.map((item) => (
         <div key={item.id} className="card">
-          <h2>{item.name}x{item.count}</h2>
+          <h2><img style={{width: "32px",height:"32px"}} src={item.name}></img>
+x{item.count}</h2>
         </div>
         
       ))}

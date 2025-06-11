@@ -1,11 +1,11 @@
 import React, { use, useState,useEffect,useRef } from "react";
 import Menu from "./menu.js";
 const availableItems = [
-  { id: 0, name: "pan.png", price: 1 ,count:0,nutrition: 2},
-  { id: 1, name: "🧀", price: 3 ,count:0,nutrition: 5},
-  { id: 2, name: "manzana.png", price: 0.8,count:0,nutrition: 3 },
-  { id: 3, name: "🥛", price: 2,count:0, nutrition: 2 },
-  { id: 4, name: "🥚", price: 2,count:0,nutrition: 6 },
+  { id: 0, name: "pan.png", price: 1 ,count:0,nutrition: 3},
+  { id: 1, name: "queso.png", price: 2 ,count:0,nutrition: 5},
+  { id: 2, name: "manzana.png", price: 0.8,count:0,nutrition: 2 },
+  { id: 3, name: "leche.png", price: 1.5,count:0, nutrition: 4 },
+  { id: 4, name: "hamburguesa.png", price: 4,count:0,nutrition: 9 },
 ];
 
 function Tienda({ items,setItems,food, setFood }) {

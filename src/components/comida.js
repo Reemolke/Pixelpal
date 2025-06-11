@@ -19,7 +19,7 @@ function Comida({ items,setItems,food, setFood,showFood}) {
   <div className="comida">
     {Object.values(groupedItems).map((item) => (
       <div style={{fontSize: "1vw",width:"100%",padding: "5px"}} key={item.name} className="card" onClick={() => showFood(item)}>
-        <h2>{item.name}</h2>
+        <img src={item.name}></img>
         <p>x{item.count}</p>
       </div>
     ))}

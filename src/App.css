@@ -315,6 +315,14 @@ html, body {
     height: 100%;
     align-items: center;
   }
+  .comida{
+    overflow-y: hidden;
+    
+  }
+  .comida div{
+    height: 1.5vw;
+
+  }
   .menu div{
     height: 60%;
     
