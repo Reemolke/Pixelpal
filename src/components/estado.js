@@ -18,7 +18,7 @@ function Estado({dinero,selectedFood,menuEstancia,setHigiene,higiene,setEnergia,
             case "menu" :
                 return (<div className="menuSecundario">
                     <img src={user.photoURL} style={{border: "3px solid black",borderRadius: "5%",margin: "auto"}}></img>
-                    <p>${dinero.toFixed(3)}</p>
+                    <p className="dinero">${dinero.toFixed(3)}</p>
                     <div className='valorDiv'>
                         <p>☺️</p><div className='contenedorEstado'><div className='valorEstado' style={{ width: `${diversion}%` }}></div></div>
                     </div>

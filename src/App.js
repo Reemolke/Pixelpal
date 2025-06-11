@@ -122,7 +122,7 @@ useEffect(() => {
 
     saveItemsToFirebase();
   }
-}, [items, user]);
+}, [items]);
 
 const zampar = (selectedFood) => {
   if (hambre + selectedFood.nutrition * 10 > 100) {
@@ -204,7 +204,13 @@ useEffect(() => {
             style={{ width: `${hambre}%`,backgroundColor: "rgb(121, 233, 145);", zIndex: 0 }}
           ></div><div className="barraNutricionRelleno" style={{ width: `${selectedFood.nutrition*10}%` ,backgroundColor: "#FFFF91"}}></div></div>
           </div>)}
-          <div className='card' onClick={() => zampar(selectedFood)}>Comer</div>
+          {
+  items.length > 0 ? (
+    <div className="card" onClick={() => zampar(selectedFood)}>Comer</div>
+  ) : (
+    <p>No hay comida</p>
+  )
+}
       </div>
       case "tienda" :
       return <div className='menuSecundario'>
