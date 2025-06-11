@@ -27,7 +27,7 @@ function Menu({items,setItems,food,setFood,menuEstancia,setMenuEstancia,showFood
         case "tienda":
             return <Tienda items={items} setItems={setItems} food={food} setFood={setFood}></Tienda>;
         case "juego":
-            return <div className='valorDiv' style={{margin:"auto", display: "flex",flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+            return <div className='valorDiv' style={{margin:"auto", display: "flex",flexDirection: "column", justifyContent: "center", alignItems: "center",width:"80%"}}>
                         <img src="diversion.png"/><div className='contenedorEstado'><div className='valorEstado' style={{ width: `${diversion}%` }}></div></div>
                     </div>;
         case "inicio":

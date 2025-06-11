@@ -190,6 +190,10 @@ useEffect(() => {
     }
 
   }
+  const logOut = () =>{
+    setUser(null)
+    setMenuEstancia("inicio")
+  }
   const showFood = (comida) =>{
     setSelectedFood(comida);
   }
@@ -239,7 +243,7 @@ x{item.count}</h2>
     <div className="App">
       {renderMenuSecundario()}
       <div className="tamagotchi">
-        <Title home={home}></Title>
+        <Title home={home} logOut={logOut}></Title>
         <Frame setDinero={setDinero} dinero={dinero} menuEstancia={menuEstancia} setMenuEstancia={setMenuEstancia} setDiversion={setDiversion} diversion={diversion}></Frame>
         <Menu user={user} setUser={setUser} setDiversion={setDiversion} diversion={diversion} setEnergia={setEnergia} energia={energia} items={items} setItems={setItems} food={food} setFood={setFood} menuEstancia={menuEstancia} setMenuEstancia={setMenuEstancia} showFood={showFood}></Menu>
       </div>
