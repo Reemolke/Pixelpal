@@ -184,7 +184,7 @@ const RunnerGame = ({ spritesheetUrl, framesCount, frameWidth, frameHeight,setDi
           width: '80%',
           height: frameHeight + 100,
           margin: "0 auto",
-          backgroundImage: `url(/Sprite-0001.png)`,
+          backgroundImage: `url(/background.gif)`,
           backgroundSize: "contain",
           backgroundRepeat:"repeat-x",
           overflow: "hidden",
@@ -216,7 +216,8 @@ const RunnerGame = ({ spritesheetUrl, framesCount, frameWidth, frameHeight,setDi
               left: o.x,
               width: 30,
               height: 40,
-              backgroundColor: "red",
+              backgroundImage: `url(/box.png)`,
+              backgroundRepeat: "no-repeat",
               borderRadius: 4,
             }}
           />
@@ -235,7 +236,7 @@ const RunnerGame = ({ spritesheetUrl, framesCount, frameWidth, frameHeight,setDi
 };
 
 export default function Juego({ juego,setDinero,dinero,setDiversion,diversion }) {
-  const spritesheetUrl = "/PlayerTemplateIdle.png"; // Cambia a tu ruta real
+  const spritesheetUrl = "/RMO_running.png"; // Cambia a tu ruta real
   const framesCount = 6;
   const frameWidth = 64;
   const frameHeight = 64;

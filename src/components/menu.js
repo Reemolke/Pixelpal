@@ -3,7 +3,7 @@ import Comida from "./comida.js";
 import Tienda from "./tienda.js";
 import Dormir from "./dormir.js";
 import LoginComponent from "./inicio.js";
-function Menu({items,setItems,food,setFood,menuEstancia,setMenuEstancia,showFood,setEnergia,energia,user,setUser}){
+function Menu({items,setItems,food,setFood,menuEstancia,setMenuEstancia,showFood,setEnergia,energia,user,setUser,diversion,setDiversion}){
 
     const renderContenido = () => {
     switch (menuEstancia) {
@@ -27,7 +27,9 @@ function Menu({items,setItems,food,setFood,menuEstancia,setMenuEstancia,showFood
         case "tienda":
             return <Tienda items={items} setItems={setItems} food={food} setFood={setFood}></Tienda>;
         case "juego":
-            return <div><h1>Juego</h1></div>;
+            return <div className='valorDiv' style={{margin:"auto", display: "flex",flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+                        <img src="diversion.png"/><div className='contenedorEstado'><div className='valorEstado' style={{ width: `${diversion}%` }}></div></div>
+                    </div>;
         case "inicio":
             return <LoginComponent setMenuEstancia={setMenuEstancia} user={user} setUser={setUser}></LoginComponent>
         default:

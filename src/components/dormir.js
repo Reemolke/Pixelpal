@@ -18,8 +18,8 @@ function Dormir({ setEnergia, energia }) {
 
   return (
     <div style={{ width: '80%', margin: 'auto' }}>
-      <div className='valorDiv'>
-                        <p>⚡️</p><div className='contenedorEstado'><div className='valorEstado' style={{ width: `${energia}%` }}></div></div>
+      <div className='valorDiv' style={{margin:"auto", display: "flex",flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+                        <img src="energia.png"/><div className='contenedorEstado'><div className='valorEstado' style={{ width: `${energia}%` }}></div></div>
                     </div>
     </div>
   );

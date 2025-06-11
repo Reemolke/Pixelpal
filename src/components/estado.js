@@ -20,25 +20,25 @@ function Estado({dinero,selectedFood,menuEstancia,setHigiene,higiene,setEnergia,
                     <img src={user.photoURL} style={{border: "3px solid black",borderRadius: "5%",margin: "auto"}}></img>
                     <p className="dinero">${dinero.toFixed(3)}</p>
                     <div className='valorDiv'>
-                        <p>☺️</p><div className='contenedorEstado'><div className='valorEstado' style={{ width: `${diversion}%` }}></div></div>
+                        <img src="diversion.png"/><div className='contenedorEstado'><div className='valorEstado' style={{ width: `${diversion}%` }}></div></div>
                     </div>
                     <div className='valorDiv'>
-                        <p>🍔</p><div className='contenedorEstado'><div className='valorEstado' style={{ width: `${hambre}%` }}></div></div>
+                        <img src="hamburguesa.png"/><div className='contenedorEstado'><div className='valorEstado' style={{ width: `${hambre}%` }}></div></div>
                     </div>
                     <div className='valorDiv'>
-                        <p>⚡️</p><div className='contenedorEstado'><div className='valorEstado' style={{ width: `${energia}%` }}></div></div>
+                        <img src="energia.png"/><div className='contenedorEstado'><div className='valorEstado' style={{ width: `${energia}%` }}></div></div>
                     </div>
                 </div>)
                 default :
                 return (<div className="menuSecundario">
                     <div className='valorDiv'>
-                        <p>☺️</p><div className='contenedorEstado'><div className='valorEstado' style={{ width: `${diversion}%` }}></div></div>
+                        <img src="diversion.png"/><div className='contenedorEstado'><div className='valorEstado' style={{ width: `${diversion}%` }}></div></div>
                     </div>
                     <div className='valorDiv'>
-                        <p>🍔</p><div className='contenedorEstado'><div className='valorEstado' style={{ width: `${hambre}%` }}></div></div>
+                        <img src="hamburguesa.png"/><div className='contenedorEstado'><div className='valorEstado' style={{ width: `${hambre}%` }}></div></div>
                     </div>
                     <div className='valorDiv'>
-                        <p>⚡️</p><div className='contenedorEstado'><div className='valorEstado' style={{ width: `${energia}%` }}></div></div>
+                        <img src="energia.png"/><div className='contenedorEstado'><div className='valorEstado' style={{ width: `${energia}%` }}></div></div>
                     </div>
                 </div>)
         }

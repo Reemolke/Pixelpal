@@ -196,7 +196,7 @@ useEffect(() => {
   const renderMenuSecundario = () =>{
     switch(menuEstancia) {
       case "comida" :
-        return <div className='menuSecundario' style={{alignItems: "center"}}>
+        return <div className='menuSecundario' style={{alignItems: "center",color:"wheat"}}>
           {selectedFood &&(<div style={{border: "3px solid black", borderRadius: "5%",width: "100%"}}>
           <img src={selectedFood.name}></img>
           <div style={{display: "flex",flexDirection: "row"}}><div
@@ -205,15 +205,15 @@ useEffect(() => {
           ></div><div className="barraNutricionRelleno" style={{ width: `${selectedFood.nutrition*10}%` ,backgroundColor: "#FFFF91"}}></div></div>
           </div>)}
           {
-  items.length > 0 ? (
+  selectedFood? (
     <div className="card" onClick={() => zampar(selectedFood)}>Comer</div>
   ) : (
-    <p>No hay comida</p>
+    <p style={{fontSize: "0.7vw"}}>No hay comida</p>
   )
 }
       </div>
       case "tienda" :
-      return <div className='menuSecundario'>
+      return <div className='menuSecundario' style={{color: "wheat"}}>
         
         {food.map((item) => (
         <div key={item.id} className="card">
@@ -222,9 +222,10 @@ x{item.count}</h2>
         </div>
         
       ))}
-      <div className='botonComprar' onClick={comprar}>
+      {food.length > 0 && (<div className='botonComprar'  onClick={comprar}>
         <h3>Comprar</h3>
-        </div>
+        </div>)}
+      
       </div>
       case "menu" :
         return <Estado dinero={dinero} user={user} menuEstancia={menuEstancia} selectedFood={selectedFood} setEnergia={setEnergia} setDiversion={setDiversion} setHambre={setHambre} setHigiene={setHigiene} higiene={higiene} hambre={hambre} diversion={diversion} energia={energia} ></Estado>
@@ -240,7 +241,7 @@ x{item.count}</h2>
       <div className="tamagotchi">
         <Title home={home}></Title>
         <Frame setDinero={setDinero} dinero={dinero} menuEstancia={menuEstancia} setMenuEstancia={setMenuEstancia} setDiversion={setDiversion} diversion={diversion}></Frame>
-        <Menu user={user} setUser={setUser} setEnergia={setEnergia} energia={energia} items={items} setItems={setItems} food={food} setFood={setFood} menuEstancia={menuEstancia} setMenuEstancia={setMenuEstancia} showFood={showFood}></Menu>
+        <Menu user={user} setUser={setUser} setDiversion={setDiversion} diversion={diversion} setEnergia={setEnergia} energia={energia} items={items} setItems={setItems} food={food} setFood={setFood} menuEstancia={menuEstancia} setMenuEstancia={setMenuEstancia} showFood={showFood}></Menu>
       </div>
     </div>
   );
