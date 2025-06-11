@@ -176,6 +176,12 @@ const cargarInventario = async (user, setItems) => {
     console.error("Error al cargar inventario:", error);
   }
 };
+const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    setIsMobile(mobile);
+  }, []);
 useEffect(() => {
   if (user) {
     cargarInventario(user, setItems);
@@ -190,6 +196,7 @@ useEffect(() => {
     }
 
   }
+  
   const logOut = () =>{
     setUser(null)
     setMenuEstancia("inicio")
@@ -239,7 +246,10 @@ x{item.count}</h2>
       return;
     }
   }
-  return (
+  if(isMobile){
+    return <div style={{margin: 0,alignItems:"center"}}><h1>No disponible para dispositivos móviles.</h1></div>
+  }else{
+    return (
     <div className="App">
       {renderMenuSecundario()}
       <div className="tamagotchi">
@@ -249,6 +259,7 @@ x{item.count}</h2>
       </div>
     </div>
   );
+  }
 }
 
 
