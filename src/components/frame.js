@@ -1,16 +1,24 @@
 import { useEffect, useRef } from "react";
 import Juego from "./juego";
 
-function Frame({ setMenuEstancia, menuEstancia,dinero,setDinero,setDiversion,diversion }) {
+function Frame({ setMenuEstancia, menuEstancia,dinero,setDinero,setDiversion,diversion,hambre,energia }) {
   const canvasRef = useRef(null);
-
+  const felicidad = diversion+hambre+energia
 const animConfigs = {
   menu: { spriteSrc: "/RMO.png", currentRow: 0, totalFrames: 4, loop: true },
   comer: { spriteSrc: "/RMO_eating.png", currentRow: 0, totalFrames: 6, loop: false },
-  dormir: { spriteSrc: "/RMO_charging.png", currentRow: 0, totalFrames: 7, loop: true }, // No loop
+  dormir: { spriteSrc: "/RMO_charging.png", currentRow: 0, totalFrames: 7, loop: true },// No loop
   default: { spriteSrc: "/RMO.png", currentRow: 0, totalFrames: 4, loop: true },
 };
-
+if(felicidad < 100){
+  animConfigs.menu.spriteSrc = "/RMO_sad.png";
+  animConfigs.menu.totalFrames = 1;
+  animConfigs.menu.loop= false; // <- cambia el sprite de `menu`
+} else {
+  animConfigs.menu.spriteSrc = "/RMO.png";
+  animConfigs.menu.totalFrames = 4;
+  animConfigs.menu.loop= true; // <- valor normal
+}
 
  useEffect(() => {
   const canvas = canvasRef.current;

@@ -254,7 +254,7 @@ x{item.count}</h2>
       {renderMenuSecundario()}
       <div className="tamagotchi">
         <Title home={home} logOut={logOut}></Title>
-        <Frame setDinero={setDinero} dinero={dinero} menuEstancia={menuEstancia} setMenuEstancia={setMenuEstancia} setDiversion={setDiversion} diversion={diversion}></Frame>
+        <Frame energia={energia} hambre={hambre} setDinero={setDinero} dinero={dinero} menuEstancia={menuEstancia} setMenuEstancia={setMenuEstancia} setDiversion={setDiversion} diversion={diversion}></Frame>
         <Menu user={user} setUser={setUser} setDiversion={setDiversion} diversion={diversion} setEnergia={setEnergia} energia={energia} items={items} setItems={setItems} food={food} setFood={setFood} menuEstancia={menuEstancia} setMenuEstancia={setMenuEstancia} showFood={showFood}></Menu>
       </div>
     </div>
