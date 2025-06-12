@@ -197,10 +197,23 @@ useEffect(() => {
 
   }
   
-  const logOut = () =>{
-    setUser(null)
-    setMenuEstancia("inicio")
+  const logOut = async () => {
+  if (user?.uid) {
+    const docRef = doc(db, 'estados', user.uid);
+    await setDoc(docRef, {
+      hambre,
+      higiene,
+      energia,
+      diversion,
+      lastUpdate: Date.now(),
+      dinero
+    }, { merge: true });
   }
+
+  // Ahora puedes cerrar sesión local
+  setUser(null);
+  setMenuEstancia("inicio");
+};
   const showFood = (comida) =>{
     setSelectedFood(comida);
   }
