@@ -225,6 +225,7 @@ const RunnerGame = ({ spritesheetUrl, framesCount, frameWidth, frameHeight,setDi
       </div>
 
       <h2>Puntuación: {Math.floor(score / 20)}</h2>
+      <h2 style={{color: "green"}}>Dinero: {dinero.toFixed(3)}</h2>
       {gameOver && (
         <div style={{ marginTop: 20, color: "red", fontWeight: "bold" }}>
           Game Over - Presiona Enter o Click aquí para reiniciar
