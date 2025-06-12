@@ -25,7 +25,7 @@ function App() {
   const comprar = () => {
     let sum;
     food.forEach(element => {
-      sum =+ element.price;
+      sum =+ element.price*element.count;
     });
     if(sum < dinero){
       setItems(prevItems => [...prevItems, ...food]);
