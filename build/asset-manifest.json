@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/static/css/main.9d490825.css",
-    "main.js": "/static/js/main.be4c37f3.js",
+    "main.js": "/static/js/main.05e47014.js",
     "static/js/453.0f32b679.chunk.js": "/static/js/453.0f32b679.chunk.js",
     "static/media/Monocraft-nerd-fonts-patched.ttc": "/static/media/Monocraft-nerd-fonts-patched.6ccfa0849eb8691e87fd.ttc",
     "index.html": "/index.html",
     "main.9d490825.css.map": "/static/css/main.9d490825.css.map",
-    "main.be4c37f3.js.map": "/static/js/main.be4c37f3.js.map",
+    "main.05e47014.js.map": "/static/js/main.05e47014.js.map",
     "453.0f32b679.chunk.js.map": "/static/js/453.0f32b679.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.9d490825.css",
-    "static/js/main.be4c37f3.js"
+    "static/js/main.05e47014.js"
   ]
 }
